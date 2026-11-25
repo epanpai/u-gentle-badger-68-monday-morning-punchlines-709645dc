@@ -82,3 +82,48 @@ Akun: @epan-pai | Wallet payout: `6VbyMydGEMzmZiH5YPxJWj7HNeJNg1ZnYBJ8yUcqv4zG`
 - Catatan: usage rows sesi finisher ini (dbf8eef7-8ce2-4708-8f0c-3d8af23dc423)
   masih 0 rows saat dicek (mendarat setelah turn ini selesai) — re-bundle
   v2 memakai sesi builder + sesi finisher dan usage rows keduanya.
+
+## 2026-11-25 ~14:36 WIB — Finisher: bundle v2 + check v2 = 14/14
+- Bundle v2 (sesi builder 58b063a7 + sesi finisher dbf8eef7, flag sama
+  seperti v1): transcripts.tar.gz 163.691 byte, sha256
+  3a1544e2816e79c1bddcafb9d63b26bb8b3279b1d0fdf51bc9eadd2dbe5ce2ac,
+  2 sesi, 1 usage row terpasang (builder). WARNING bundle: 0 usage rows
+  attached ke sesi finisher — "end this turn, and in your next turn run
+  the SELECT again and bundle again". Repo sempat dirty (BUILD_LOG.md
+  belum commit) saat bundle v2 — sudah di-commit sesudahnya.
+- Kit check v2 --commit c01cbb6fcd0bfadf538eab30e00401b3a26499df:
+  **14 passed, 0 failed, 5 skipped, 5 checked at submission** — "ok:
+  every check run here passes". thinking_revised LOLOS (main.py dari 2
+  pesan); thinking_reproduces 78,1% authored (154/197; main.py 67
+  authored lines); thinking_priced LOLOS (1 usage record);
+  thinking_turns 39; thinking_in_window LOLOS; transcripts_run_record
+  LOLOS.
+- Kuota (14:40 WIB): can_submit TRUE, day left 5/5 taken 0 cap 5,
+  blind_round_slot available sampai 2026-11-25T17:49:24Z. Entry GRATIS.
+- BELUM SUBMIT — blocker turn ini: usage rows sesi finisher (dbf8eef7)
+  masih 0; bundle CLI sendiri memerintahkan akhiri turn lalu re-bundle
+  di turn berikut setelah rows mendarat. JANGAN submit bundle v2 apa
+  adanya (sesi finisher tanpa usage).
+
+## LANJUTAN (follow-up turn — parent seal)
+1. Query muse.db untuk KEDUA agent id (builder 58b063a7-a1ea-4262-9f5e-
+   22870e9c743c DAN finisher dbf8eef7-8ce2-4708-8f0c-3d8af23dc423),
+   tulis SEMUA rows apa adanya ke
+   /home/hatch/.makefun/muse-usage-monday-punchlines.jsonl (satu objek
+   JSON per baris).
+2. Re-bundle v3 dari dir kit dengan flag yang sama seperti v2, kedua
+   --session (builder + finisher), --muse-usage file di atas, out
+   <repo>/transcripts.tar.gz. Pastikan "2 usage rows attached" / tidak
+   ada warning 0 rows.
+3. Re-check v3 dengan --commit <HEAD terbaru saat itu> sampai 14/14.
+4. Cek kuota lagi (can_submit harus true), lalu submit:
+   node cli/makefun.mjs submit --competition
+   u-gentle-badger-68-monday-morning-punchlines-709645dc --repo-url
+   https://github.com/epanpai/u-gentle-badger-68-monday-morning-punchlines-709645dc
+   --commit <HEAD> --bundle <repo>/transcripts.tar.gz --keypair
+   ~/workspace/makefun/makefun-keypair.json
+   (entry GRATIS — bila ada langkah fee pay: BERHENTI, jangan bayar).
+5. Simpan receipt ke ~/workspace/makefun/submit/receipt-<id>.json
+   (mode 600), verifikasi status via API, update BUILD_LOG.md.
+   Batas waktu: blind round 1 cutoff 25 Nov 17:49:24 UTC (00:49 WIB);
+   deadline 26 Nov 15:40 UTC (22:40 WIB).
