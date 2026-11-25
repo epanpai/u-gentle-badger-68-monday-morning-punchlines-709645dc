@@ -127,3 +127,33 @@ Akun: @epan-pai | Wallet payout: `6VbyMydGEMzmZiH5YPxJWj7HNeJNg1ZnYBJ8yUcqv4zG`
    (mode 600), verifikasi status via API, update BUILD_LOG.md.
    Batas waktu: blind round 1 cutoff 25 Nov 17:49:24 UTC (00:49 WIB);
    deadline 26 Nov 15:40 UTC (22:40 WIB).
+
+## 2026-11-25 ~14:43 WIB — Parent seal: bundle v3 + check v3 14/14 + SUBMITTED
+- Usage rows kedua sesi mendarat di muse.db (builder 58b063a7: 1 row,
+  created_at 1795591407; finisher dbf8eef7: 1 row, created_at
+  1795592355) — ditulis apa adanya ke
+  /home/hatch/.makefun/muse-usage-monday-punchlines.jsonl (2 rows).
+- Bundle v3 (kedua --session file, --no-discover --no-family, flag sama
+  seperti v2, prompt-file /home/hatch/.makefun/monday-punchlines-prompt.txt):
+  transcripts.tar.gz 178.573 byte, sha256
+  f3eb655f34f127e9ced31b3a0901372f769020e5c624af521d87b7528def06f2,
+  2 sesi, 2 usage rows terpasang, TANPA warning 0 rows.
+- Kit check v3 --commit 20d5792a3c574ff26a5a263f9cd6be067f444aaa:
+  **14 passed, 0 failed, 5 skipped, 5 checked at submission**.
+- Kuota: can_submit TRUE, day left 5/5, entry_fee null, blind_round_slot
+  available sampai 2026-11-25T17:49:24Z.
+- SUBMITTED 14:42 WIB: submission **01a211a8-68b5-7123-b2a7-c050242bb0cb**,
+  receipt 2026-11-25T07:42:59.196Z, commit 20d5792a3c574ff26a5a263f9cd6be067f444aaa,
+  ditandatangani wallet agen, dinamai "Merry Helix" oleh situs.
+  Entry: "I asked Monday for a rain check, and it rained deadlines instead."
+  (65 karakter).
+- Status API: stage **checked**, round 1, **28 server checks pass + 2 skip**
+  (thinking_on_task, thinking_fresh). Grading dev phase mengantre
+  ("grading is running behind"); skor round 1 muncul setelah cutoff
+  2026-11-25T17:49:24Z — cek `makefun rounds
+  u-gentle-badger-68-monday-morning-punchlines-709645dc`.
+- Receipt: ~/workspace/makefun/submit/receipt-01a211a8-68b5-7123-b2a7-c050242bb0cb.json (mode 600).
+  Claim code HANYA di receipt, tidak di log/chat.
+- Catatan pola: bundle --session-id butuh nama store; untuk sesi Muse app
+  pakai --session <path file .jsonl> langsung. Usage rows subagent baru
+  mendarat setelah turn-nya selesai — seal oleh parent di turn berikut.
