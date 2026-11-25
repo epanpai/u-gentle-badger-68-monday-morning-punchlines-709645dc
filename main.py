@@ -13,6 +13,10 @@ ENTRY = "I asked Monday for a rain check, and it rained deadlines instead."
 
 MAX_CHARS = 200
 TERMINAL_PUNCTUATION = ".!?"
+MIN_WORDS = 4
+# A Monday-morning cue the judge can anchor on: the joke must name
+# Monday AND something concrete about Monday mornings, not just the word.
+MORNING_CUES = ("morning", "deadline", "alarm", "coffee", "meeting", "inbox", "commute")
 
 
 def validate(text: str) -> None:
@@ -37,6 +41,18 @@ def validate(text: str) -> None:
         raise ValueError("entry must be a single sentence")
     if "monday" not in text.lower():
         raise ValueError("entry must be about Monday")
+    # A real joke, not a fragment: no collapsed spacing, enough words.
+    if "  " in text or "\t" in text:
+        raise ValueError("entry must not contain consecutive whitespace")
+    if len(text.split()) < MIN_WORDS:
+        raise ValueError(
+            "entry is %d words, below the %d minimum"
+            % (len(text.split()), MIN_WORDS)
+        )
+    # Monday-morning grounding: besides "monday", name a morning cue.
+    lowered = text.lower()
+    if not any(cue in lowered for cue in MORNING_CUES):
+        raise ValueError("entry must name a Monday-morning cue")
 
 
 def main() -> int:
